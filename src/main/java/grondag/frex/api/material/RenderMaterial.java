@@ -72,13 +72,29 @@ public interface RenderMaterial extends net.fabricmc.fabric.api.renderer.v1.mate
 
 	boolean emissive();
 
-	boolean enableLightmap();
+	/**
+	 * @deprecated No longer used or valid. Always returns true.
+	 * Will be removed in a subsequent release.
+	 */
+	@Deprecated
+	@ScheduledForRemoval
+	default boolean enableLightmap() {
+		return true;
+	}
 
 	boolean flashOverlay();
 
 	int fog();
 
-	boolean gui();
+	/**
+	 * @deprecated No longer used or valid. Always returns false.
+	 * Will be removed in a subsequent release.
+	 */
+	@Deprecated
+	@ScheduledForRemoval
+	default boolean gui() {
+		return false;
+	}
 
 	Identifier fragmentShaderId();
 
@@ -123,4 +139,16 @@ public interface RenderMaterial extends net.fabricmc.fabric.api.renderer.v1.mate
 	 * @return name of associated vanilla {@code RenderLayer} if any, undefined otherwise
 	 */
 	String renderLayerName();
+
+	/**
+	 * True when material should cast shadows. Pipelines that lack
+	 * shadowmaps or some other mechanism for realistic shadows will
+	 * ignore this.  Defaults to true.
+	 *
+	 * <p>Set false for materials that render as solid for practical
+	 * reasons but should not cast shadows.  Beacon beams are a vanilla example.
+	 *
+	 * @return true if material should cast shadows
+	 */
+	boolean castShadows();
 }
